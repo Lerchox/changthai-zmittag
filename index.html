@@ -15,8 +15,7 @@
 <meta name="apple-mobile-web-app-title" content="ChangThai">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* Layout: one-column phone app, sticky header, bottom tab bar, bottom sheet for adding a dish */
 :root{
@@ -354,6 +353,16 @@ function vMenu() {
   <h2>Ich</h2>
   <p class="small muted">Diese Person bekommt keine Zahlungsnachricht.</p>
   <div class="seg">${S.people.map(p => `<button data-me="${p.id}" aria-pressed="${p.me}">${esc(p.name)}</button>`).join("")}</div>
+  <h2>Über die App und Datenschutz</h2>
+  <div class="note stack" style="gap:8px">
+    <p style="margin:0"><b>Inoffizielles Hilfsmittel.</b> Diese App ist ein privates, kostenloses Projekt und kein Angebot von ChangThai. Massgebend sind immer das aktuelle Menü und die Preise von ChangThai. Berechnungen ohne Gewähr.</p>
+    <p style="margin:0"><b>Deine Daten bleiben auf deinem Handy.</b> Namen, Telefonnummern und Bestellungen werden nur lokal in diesem Browser gespeichert. Es gibt keinen Server, kein Konto, keine Werbung und kein Tracking. Niemand sonst, auch nicht der Betreiber, sieht diese Daten.</p>
+    <p style="margin:0"><b>WhatsApp und SMS</b> werden erst geöffnet, wenn du auf den Knopf tippst. Den Text siehst du vorher und schickst ihn selbst ab. Ab dann gelten die Datenschutzbestimmungen von WhatsApp bzw. deines Mobilfunkanbieters.</p>
+    <p style="margin:0"><b>Kontakte</b> (nur Android) liest die App nur, wenn du sie selbst auswählst, und speichert nur Vorname und Nummer.</p>
+    <p style="margin:0"><b>Hosting:</b> Die App liegt auf GitHub Pages (GitHub Inc., USA). Beim Laden der Seite verarbeitet GitHub technisch bedingt deine IP-Adresse. Schriften und Code werden direkt von dort geladen, nicht von Drittanbietern.</p>
+    <p style="margin:0"><b>Löschen:</b> «Alles löschen» unten entfernt alle Daten. Die App deinstallieren tut dasselbe.</p>
+    <p style="margin:0"><b>Betreiber und Kontakt:</b> Privatperson, <a href="https://github.com/Lerchox/changthai-zmittag/issues" target="_blank" rel="noopener">github.com/Lerchox/changthai-zmittag</a></p>
+  </div>
   <h2>Alles zurücksetzen</h2>
   <button class="btn sm" id="factory">Alles löschen</button>`;
 }
