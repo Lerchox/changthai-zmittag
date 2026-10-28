@@ -1,0 +1,18 @@
+{
+  "version": "2026-10-26",
+  "week": "Mo 26.10. – Fr 30.10.2026",
+  "dishes": [
+    { "id": "curry", "name": "Panang Curry", "short": "Curry", "join": "" },
+    { "id": "nudeln", "name": "Gebratene Reisnudeln (Pad Sen)", "short": "Gebr. Nudeln", "join": "m/" },
+    { "id": "reis", "name": "Gebratener Reis (Kao Pad)", "short": "Gebr. Reis", "join": "m/" }
+  ],
+  "proteins": [
+    { "id": "ente", "name": "Ente", "msg": "Ente", "small": 16, "large": 18 },
+    { "id": "rind", "name": "Weide Rind", "msg": "Rind", "small": 16, "large": 18 },
+    { "id": "poulet", "name": "Poulet", "msg": "Poulet", "small": 15, "large": 17 },
+    { "id": "vegi", "name": "Vegi", "msg": "Veggie", "small": 12, "large": 14 },
+    { "id": "tofu", "name": "Tofu", "msg": "Tofu", "small": 13, "large": 15 },
+    { "id": "crev", "name": "Crevetten (nur Vorbestellung)", "msg": "Crevetten", "small": 16, "large": 18 }
+  ],
+  "spices": ["basisscharf", "nicht scharf", "scharf", "sehr scharf"]
+}

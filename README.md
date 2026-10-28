@@ -19,3 +19,7 @@ Seite öffnen, dann:
 Danach startet die App per Icon und funktioniert auch offline.
 
 Inoffizielles Hilfsmittel, nicht von ChangThai.
+
+## Wochenmenü aktualisieren
+
+Das Menü steht in `menu.json`. Neue Woche: Gerichte und Preise anpassen und `version` ändern (z.B. Datum des Montags). Beim nächsten Öffnen übernimmt jede App das neue Menü automatisch.

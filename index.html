@@ -322,7 +322,8 @@ function vBill() {
 function vMenu() {
   const m = S.menu;
   return `
-  <p class="small muted">Wenn ChangThai das Wochenmenü wechselt, hier anpassen. «Kurzname» landet in der WhatsApp-Nachricht.</p>
+  ${S.menuWeek ? `<div class="note"><b>Wochenmenü ${esc(S.menuWeek)}</b><br>Wird automatisch aktualisiert, sobald ein neues Menü bereitsteht. Eigene Änderungen hier gelten nur für dich bis zum nächsten Wochenmenü.</div>` : ""}
+  <p class="small muted">«Kurzname» landet in der WhatsApp-Nachricht.</p>
   <h2>Gerichte</h2>
   <div class="stack">${m.dishes.map(d => `
     <div class="grid2" style="grid-template-columns:1fr 1fr 70px 32px;align-items:end">
@@ -428,6 +429,16 @@ document.addEventListener("change", e => {
   if (d.prot) { const x = S.menu.proteins.find(y => y.id === d.prot); if (d.k === "msg") { if (x.name === x.msg) x.name = t.value.trim(); x.msg = t.value.trim(); } else x[d.k] = parseFloat(t.value) || 0; save(); return; }
 });
 render();
+
+// Zentrales Wochenmenü aus menu.json laden (gilt für alle Nutzer)
+fetch("menu.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(m => {
+  if (!m || !m.version || m.version === S.menuVersion) return;
+  S.menu.dishes = m.dishes; S.menu.proteins = m.proteins;
+  if (m.spices) S.menu.spices = m.spices;
+  S.menuVersion = m.version; S.menuWeek = m.week || "";
+  save(); render(); toast("Neues Wochenmenü geladen");
+}).catch(() => {});
+
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
 </script>
 
