@@ -1,5 +1,5 @@
 // Offline-Cache: App-Dateien beim Installieren, Schriften beim ersten Laden
-const CACHE = "changthai-zmittag-v3";
+const CACHE = "changthai-zmittag-v4";
 const FILES = ["./", "index.html", "manifest.webmanifest", "menu.json", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png", "fonts/fonts.css", "fonts/AtkinsonHyperlegible-400.woff2", "fonts/AtkinsonHyperlegible-700.woff2", "fonts/BricolageGrotesque-600.woff2", "fonts/BricolageGrotesque-800.woff2"];
 
 self.addEventListener("install", e => {
