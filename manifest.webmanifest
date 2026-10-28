@@ -1,0 +1,16 @@
+{
+  "name": "ChangThai-Zmittag",
+  "short_name": "ChangThai",
+  "description": "Sammelbestellung bei ChangThai: Menüs erfassen, WhatsApp-Bestellung erzeugen, Beträge pro Person verschicken.",
+  "lang": "de-CH",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F3F5F1",
+  "theme_color": "#2E6A40",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
