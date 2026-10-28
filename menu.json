@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-26",
+  "version": "2026-10-26b",
   "week": "Mo 26.10. – Fr 30.10.2026",
   "dishes": [
     { "id": "curry", "name": "Panang Curry", "short": "Curry", "join": "" },
@@ -14,5 +14,5 @@
     { "id": "tofu", "name": "Tofu", "msg": "Tofu", "small": 13, "large": 15 },
     { "id": "crev", "name": "Crevetten (nur Vorbestellung)", "msg": "Crevetten", "small": 16, "large": 18 }
   ],
-  "spices": ["basisscharf", "nicht scharf", "scharf", "sehr scharf"]
+  "spices": ["basisscharf", "CH-scharf", "Thai-scharf"]
 }
