@@ -140,6 +140,7 @@ nav button[aria-selected=true]{color:var(--basil)}
 
 <script>
 const KEY = "changthai-app-v1";
+const HAS_CONTACTS = "contacts" in navigator && "select" in navigator.contacts;
 const uid = () => Math.random().toString(36).slice(2, 9);
 
 const DEFAULTS = () => {
@@ -261,6 +262,7 @@ function vOrder() {
   <form id="addPerson" class="row" style="margin-top:12px">
     <input id="newName" type="text" placeholder="Vorname hinzufügen" autocomplete="off" style="flex:1;min-width:0">
     <button class="btn primary">Hinzufügen</button>
+    ${HAS_CONTACTS ? `<button type="button" class="btn sm" id="pickPeople">Aus Kontakten wählen</button>` : ""}
   </form>
   <div class="row" style="margin-top:16px">
     <button class="btn ghost sm" id="toggleEdit">${editPeople ? "Fertig" : "Namen bearbeiten"}</button>
@@ -300,13 +302,14 @@ function vBill() {
     <tr><td class="muted small">Faktor pro Person</td><td class="r muted small">${(b.f * 100).toFixed(1)} %</td></tr>
   </tbody></table>
   <h2>Pro Person</h2>
-  <p class="small muted">Jeder zahlt seinen Listenpreis mal Faktor, gerundet auf 5 Rappen. Gleiche Logik wie im Excel.</p>
+  <p class="small muted">Jeder zahlt seinen Listenpreis mal Faktor, gerundet auf 5 Rappen.</p>
   <div class="stack">
   ${b.rows.map(r => r.p.me ? `<div class="payee"><div class="person-head"><span class="person-name">${esc(r.p.name)} <span class="muted small">(ich)</span></span><span class="amt">${chf(r.share)}</span></div></div>` : `
     <div class="payee">
       <div class="person-head"><span class="person-name">${esc(r.p.name)}</span><span class="amt">${chf(r.share)}</span></div>
       <span class="small muted num">Liste ${chf(r.list)}</span>
-      <input type="tel" data-phone="${r.p.id}" placeholder="Handynummer, z.B. 079 123 45 67" value="${esc(r.p.phone)}">
+      <div class="row"><input type="tel" data-phone="${r.p.id}" placeholder="Handynummer, z.B. 079 123 45 67" value="${esc(r.p.phone)}" style="flex:1;min-width:0">
+        ${HAS_CONTACTS ? `<button class="btn sm" data-pickphone="${r.p.id}">Kontakt</button>` : ""}</div>
       <div class="row">
         <a class="btn wa sm" target="_blank" rel="noopener" href="${waLink(r.p.phone, payMessage(r))}">WhatsApp</a>
         <a class="btn sm" href="${smsLink(r.p.phone, payMessage(r))}">SMS</a>
@@ -399,12 +402,31 @@ document.addEventListener("click", e => {
   if (d.me) { S.people.forEach(p => p.me = p.id === d.me); save(); return render(); }
   if (d.deld) { S.menu.dishes = S.menu.dishes.filter(x => x.id !== d.deld); save(); return render(); }
   if (d.delpr) { S.menu.proteins = S.menu.proteins.filter(x => x.id !== d.delpr); save(); return render(); }
+  if (d.pickphone) {
+    navigator.contacts.select(["tel"], { multiple: false }).then(([c]) => {
+      if (!c || !c.tel || !c.tel.length) return;
+      S.people.find(x => x.id === d.pickphone).phone = c.tel[0]; save(); render();
+    }).catch(() => {});
+    return;
+  }
   if (d.copypay) { const el = $("#pay-" + d.copypay); el.hidden = false; return copy(el.textContent, "#pay-" + d.copypay); }
   switch (t.id) {
     case "plus": draft.qty++; return renderSheet();
     case "minus": draft.qty = Math.max(1, draft.qty - 1); return renderSheet();
     case "closeSheet": draft = null; return renderSheet();
     case "confirmAdd": S.orders.push({ ...draft, id: uid() }); S.isExample = false; draft = null; save(); renderSheet(); render(); return toast("Hinzugefügt");
+    case "pickPeople":
+      navigator.contacts.select(["name", "tel"], { multiple: true }).then(list => {
+        for (const c of list) {
+          const name = ((c.name && c.name[0]) || "").trim().split(/\s+/)[0];
+          if (!name) continue;
+          const first = !S.people.length;
+          S.people.push({ id: uid(), name, phone: (c.tel && c.tel[0]) || "", me: first });
+          if (first && !S.settings.sender) S.settings.sender = name;
+        }
+        save(); render();
+      }).catch(() => {});
+      return;
     case "toggleEdit": editPeople = !editPeople; return render();
     case "reset": $("#resetConfirm").innerHTML = `<div class="note row" style="margin-top:10px"><span style="flex:1;min-width:0">Alle Menüs löschen? Namen und Nummern bleiben.</span><button class="btn sm primary" id="resetYes">Ja, leeren</button></div>`; return;
     case "resetYes": S.orders = []; S.bill = { discount: S.bill.discount, paid: "" }; S.isExample = false; save(); return render();
