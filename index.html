@@ -238,6 +238,22 @@ function copy(text, sel) {
   });
 }
 
+/* ---------- backup ---------- */
+const BACKUP_PREFIX = "CHANGTHAI-ZMITTAG:";
+function backupCode() {
+  const data = { people: S.people, settings: S.settings };
+  return BACKUP_PREFIX + btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+}
+function restoreFrom(text) {
+  const i = text.indexOf(BACKUP_PREFIX); if (i < 0) throw new Error("kein Code");
+  const code = text.slice(i + BACKUP_PREFIX.length).trim().split(/\s/)[0];
+  const data = JSON.parse(decodeURIComponent(escape(atob(code))));
+  if (!Array.isArray(data.people)) throw new Error("ungültig");
+  S.people = data.people; S.settings = { ...S.settings, ...data.settings };
+  S.orders = S.orders.filter(o => S.people.some(p => p.id === o.personId));
+  save();
+}
+
 /* ---------- views ---------- */
 function vOrder() {
   const n = countAll();
@@ -363,6 +379,16 @@ function vMenu() {
     <p style="margin:0"><b>Löschen:</b> «Alles löschen» unten entfernt alle Daten. Die App deinstallieren tut dasselbe.</p>
     <p style="margin:0"><b>Betreiber und Kontakt:</b> Privatperson, <a href="https://github.com/Lerchox/changthai-zmittag/issues" target="_blank" rel="noopener">github.com/Lerchox/changthai-zmittag</a></p>
   </div>
+  <h2>Daten sichern und wiederherstellen</h2>
+  <p class="small muted">Sichert Namen, Nummern und Einstellungen als Text. Praktisch vor einer Neuinstallation oder für ein neues Handy.</p>
+  <div class="row">
+    <button class="btn sm" id="backupCopy">Sicherung kopieren</button>
+    <a class="btn wa sm" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(backupCode())}">An mich per WhatsApp</a>
+  </div>
+  <div class="msg small" id="backupText" hidden>${esc(backupCode())}</div>
+  <label class="field" style="margin-top:12px"><span class="label">Sicherung wiederherstellen</span>
+    <textarea id="restoreText" placeholder="Gesicherten Text hier einfügen"></textarea></label>
+  <div class="row" style="margin-top:8px"><button class="btn sm primary" id="restoreGo">Wiederherstellen</button></div>
   <h2>Alles zurücksetzen</h2>
   <button class="btn sm" id="factory">Alles löschen</button>`;
 }
@@ -440,6 +466,11 @@ document.addEventListener("click", e => {
     case "copyMsg": return copy(orderMessage(), "#orderMsg");
     case "addDish": S.menu.dishes.push({ id: uid(), name: "Neues Gericht", short: "Neu", join: "m/" }); save(); return render();
     case "addProt": S.menu.proteins.push({ id: uid(), name: "Neu", msg: "Neu", small: 15, large: 17 }); save(); return render();
+    case "backupCopy": { const el = $("#backupText"); el.hidden = false; return copy(el.textContent, "#backupText"); }
+    case "restoreGo":
+      try { restoreFrom($("#restoreText").value); tab = "order"; render(); toast(`${S.people.length} Namen wiederhergestellt`); }
+      catch (err) { toast("Das ist keine gültige Sicherung"); }
+      return;
     case "factory": $("#factory").outerHTML = `<button class="btn sm primary" id="factoryYes">Wirklich alles löschen</button>`; return;
     case "factoryYes": S = DEFAULTS(); save(); tab = "order"; return render();
   }
