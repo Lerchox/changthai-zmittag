@@ -1,17 +1,17 @@
 {
-  "version": "2026-11-02",
-  "week": "Mo 02.11. – Fr 06.11.2026",
+  "version": "2026-11-09",
+  "week": "Mo 09.11. – Fr 13.11.2026",
   "dishes": [
     {
-      "id": "rotcurry",
-      "name": "Rotes Curry",
-      "short": "Rotes Curry",
+      "id": "massaman",
+      "name": "Massaman Curry",
+      "short": "Massaman Curry",
       "join": ""
     },
     {
-      "id": "padthai",
-      "name": "Gebratene Reisnudeln (Pad Thai)",
-      "short": "Pad Thai",
+      "id": "nudeln",
+      "name": "Gebratene Reisnudeln (Pad Sen)",
+      "short": "Gebr. Nudeln",
       "join": "m/"
     }
   ],
@@ -53,7 +53,7 @@
     },
     {
       "id": "crev",
-      "name": "Crevetten (nur Pad Thai, Vorbestellung)",
+      "name": "Crevetten (nur Vorbestellung)",
       "msg": "Crevetten",
       "small": 16,
       "large": 18
