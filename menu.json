@@ -1,17 +1,17 @@
 {
-  "version": "2026-11-09",
-  "week": "Mo 09.11. – Fr 13.11.2026",
+  "version": "2026-11-16",
+  "week": "Mo 16.11. – Fr 20.11.2026",
   "dishes": [
     {
-      "id": "massaman",
-      "name": "Massaman Curry",
-      "short": "Massaman Curry",
+      "id": "gruencurry",
+      "name": "Grünes Curry",
+      "short": "Grünes Curry",
       "join": ""
     },
     {
-      "id": "nudeln",
-      "name": "Gebratene Reisnudeln (Pad Sen)",
-      "short": "Gebr. Nudeln",
+      "id": "padseeew",
+      "name": "Gebratene Reisnudeln (Pad See Ew)",
+      "short": "Pad See Ew",
       "join": "m/"
     }
   ],
@@ -50,13 +50,6 @@
       "msg": "Tofu",
       "small": 13,
       "large": 15
-    },
-    {
-      "id": "crev",
-      "name": "Crevetten (nur Vorbestellung)",
-      "msg": "Crevetten",
-      "small": 16,
-      "large": 18
     }
   ],
   "spices": [
