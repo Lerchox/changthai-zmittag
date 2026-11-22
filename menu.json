@@ -1,17 +1,17 @@
 {
-  "version": "2026-11-16",
-  "week": "Mo 16.11. – Fr 20.11.2026",
+  "version": "2026-11-23",
+  "week": "Mo 23.11. – Fr 27.11.2026",
   "dishes": [
     {
-      "id": "gruencurry",
-      "name": "Grünes Curry",
-      "short": "Grünes Curry",
+      "id": "gelbcurry",
+      "name": "Gelbes Curry",
+      "short": "Gelbes Curry",
       "join": ""
     },
     {
-      "id": "padseeew",
-      "name": "Gebratene Reisnudeln (Pad See Ew)",
-      "short": "Pad See Ew",
+      "id": "nudeln",
+      "name": "Gebratene Reisnudeln (Pad Sen)",
+      "short": "Gebr. Nudeln",
       "join": "m/"
     }
   ],
